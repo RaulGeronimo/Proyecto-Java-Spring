@@ -1,0 +1,740 @@
+SHOW VARIABLES WHERE Variable_name = 'port';
+
+Enter password: *******
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.4.12-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| biblioteca         |
+| ejemplosistema     |
+| information_schema |
+| inventario         |
+| libros             |
+| musica             |
+| mysql              |
+| performance_schema |
+| restaurante        |
+| test               |
+| ventas             |
+| zapateria          |
++--------------------+
+12 rows in set (0.001 sec)
+
+MariaDB [(none)]> create database Canciones;
+Query OK, 1 row affected (0.007 sec)
+
+MariaDB [(none)]> use Canciones;
+Database changed
+MariaDB [Canciones]> create table Artista(
+    -> idArtista int primary key auto_increment,
+    -> Nombre varchar(45),
+    -> ApellidoP varchar(45),
+    -> ApellidoM varchar(45),
+    -> NombreArtistico varchar(45),
+    -> Edad int,
+    -> Genero char,
+    -> FechaNacimiento date,
+    -> Pais varchar(45),
+    -> Instrumento varchar(45),
+    -> Estatura double);
+Query OK, 0 rows affected (0.241 sec)
+
+MariaDB [Canciones]> desc Artista;
++-----------------+-------------+------+-----+---------+----------------+
+| Field           | Type        | Null | Key | Default | Extra          |
++-----------------+-------------+------+-----+---------+----------------+
+| idArtista       | int(11)     | NO   | PRI | NULL    | auto_increment |
+| Nombre          | varchar(45) | YES  |     | NULL    |                |
+| ApellidoP       | varchar(45) | YES  |     | NULL    |                |
+| ApellidoM       | varchar(45) | YES  |     | NULL    |                |
+| NombreArtistico | varchar(45) | YES  |     | NULL    |                |
+| Edad            | int(11)     | YES  |     | NULL    |                |
+| Genero          | char(1)     | YES  |     | NULL    |                |
+| FechaNacimiento | date        | YES  |     | NULL    |                |
+| Pais            | varchar(45) | YES  |     | NULL    |                |
+| Instrumento     | varchar(45) | YES  |     | NULL    |                |
+| Estatura        | double      | YES  |     | NULL    |                |
++-----------------+-------------+------+-----+---------+----------------+
+11 rows in set (0.023 sec)
+
+MariaDB [Canciones]> create table Disquera(
+    -> idDisquera int primary key auto_increment,
+    -> Nombre varchar(45),
+    -> Correo varchar(45),
+    -> Direccion varchar(45),
+    -> Telefono bigint,
+    -> Fundacion date);
+Query OK, 0 rows affected (0.150 sec)
+
+MariaDB [Canciones]> desc Disquera;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| idDisquera | int(11)     | NO   | PRI | NULL    | auto_increment |
+| Nombre     | varchar(45) | YES  |     | NULL    |                |
+| Correo     | varchar(45) | YES  |     | NULL    |                |
+| Direccion  | varchar(45) | YES  |     | NULL    |                |
+| Telefono   | bigint(20)  | YES  |     | NULL    |                |
+| Fundacion  | date        | YES  |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+6 rows in set (0.013 sec)
+
+MariaDB [Canciones]> create table Grupo(
+    -> idGrupo int primary key auto_increment,
+    -> idDisquera int,
+    -> Nombre varchar(45),
+    -> Origen varchar(45),
+    -> Inicio date,
+    -> NoIntegrantes int,
+    -> Genero varchar(45),
+    -> idioma varchar(45),
+    -> foreign key (idDisquera) references Disquera(idDisquera) on update cascade on delete cascade);
+Query OK, 0 rows affected (0.171 sec)
+
+MariaDB [Canciones]> desc Grupo;
++---------------+-------------+------+-----+---------+----------------+
+| Field         | Type        | Null | Key | Default | Extra          |
++---------------+-------------+------+-----+---------+----------------+
+| idGrupo       | int(11)     | NO   | PRI | NULL    | auto_increment |
+| idDisquera    | int(11)     | YES  | MUL | NULL    |                |
+| Nombre        | varchar(45) | YES  |     | NULL    |                |
+| Origen        | varchar(45) | YES  |     | NULL    |                |
+| Inicio        | date        | YES  |     | NULL    |                |
+| NoIntegrantes | int(11)     | YES  |     | NULL    |                |
+| Genero        | varchar(45) | YES  |     | NULL    |                |
+| idioma        | varchar(45) | YES  |     | NULL    |                |
++---------------+-------------+------+-----+---------+----------------+
+8 rows in set (0.012 sec)
+
+MariaDB [Canciones]> create table Album(
+    -> idAlbum int primary key auto_increment,
+    -> idGrupo int,
+    -> Nombre varchar(45),
+    -> NoCanciones int,
+    -> Duracion Time,
+    -> Lanzamiento date,
+    -> NoVentas double,
+    -> Genero varchar(45),
+    -> foreign key(idGrupo) references Grupo(idGrupo) on update cascade on delete cascade);
+Query OK, 0 rows affected (0.172 sec)
+
+MariaDB [Canciones]> desc Album;
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| idAlbum     | int(11)     | NO   | PRI | NULL    | auto_increment |
+| idGrupo     | int(11)     | YES  | MUL | NULL    |                |
+| Nombre      | varchar(45) | YES  |     | NULL    |                |
+| NoCanciones | int(11)     | YES  |     | NULL    |                |
+| Duracion    | time        | YES  |     | NULL    |                |
+| Lanzamiento | date        | YES  |     | NULL    |                |
+| NoVentas    | double      | YES  |     | NULL    |                |
+| Genero      | varchar(45) | YES  |     | NULL    |                |
++-------------+-------------+------+-----+---------+----------------+
+8 rows in set (0.012 sec)
+
+MariaDB [Canciones]> create table Canciones(
+    -> idCancion int primary key auto_increment,
+    -> idGrupo int,
+    -> idInterprete int,
+    -> idAlbum int,
+    -> Nombre varchar(45),
+    -> Duracion time,
+    -> Lanzamiento date,
+    -> Idioma varchar(45),
+    -> Genero varchar(45),
+    -> foreign key (idGrupo) references Grupo(idGrupo) on update cascade on delete cascade,
+    -> foreign key (idInterprete) references Artista(idArtista) on update cascade on delete cascade,
+    -> foreign key (idAlbum) references Album(idAlbum) on update cascade on delete cascade);
+Query OK, 0 rows affected (0.193 sec)
+
+MariaDB [Canciones]> desc Canciones;
++--------------+-------------+------+-----+---------+----------------+
+| Field        | Type        | Null | Key | Default | Extra          |
++--------------+-------------+------+-----+---------+----------------+
+| idCancion    | int(11)     | NO   | PRI | NULL    | auto_increment |
+| idGrupo      | int(11)     | YES  | MUL | NULL    |                |
+| idInterprete | int(11)     | YES  | MUL | NULL    |                |
+| idAlbum      | int(11)     | YES  | MUL | NULL    |                |
+| Nombre       | varchar(45) | YES  |     | NULL    |                |
+| Duracion     | time        | YES  |     | NULL    |                |
+| Lanzamiento  | date        | YES  |     | NULL    |                |
+| Idioma       | varchar(45) | YES  |     | NULL    |                |
+| Genero       | varchar(45) | YES  |     | NULL    |                |
++--------------+-------------+------+-----+---------+----------------+
+9 rows in set (0.012 sec)
+
+MariaDB [Canciones]> show tables;
++---------------------+
+| Tables_in_canciones |
++---------------------+
+| album               |
+| artista             |
+| canciones           |
+| disquera            |
+| grupo               |
++---------------------+
+5 rows in set (0.001 sec)
+
+MariaDB [Canciones]> exit
+Bye
+
+//Exportar
+C:\Program Files\MariaDB 10.4\bin>mysqldump -u root -p Canciones > C:\Users\hp\Desktop\Canciones.sql
+Enter password: *******
+
+//Importar
+C:\Program Files\MariaDB 10.4\bin>mysql -u root -p Canciones < C:\Users\hp\Desktop\Canciones.sql
+Enter password: *******
+
+MariaDB [canciones]> show tables;
++---------------------+
+| Tables_in_canciones |
++---------------------+
+| album               |
+| artista             |
+| canciones           |
+| disquera            |
+| grupo               |
++---------------------+
+5 rows in set (0.001 sec)
+
+MariaDB [canciones]> desc artista;
++-----------------+-------------+------+-----+---------+----------------+
+| Field           | Type        | Null | Key | Default | Extra          |
++-----------------+-------------+------+-----+---------+----------------+
+| idArtista       | int(11)     | NO   | PRI | NULL    | auto_increment |
+| Nombre          | varchar(45) | YES  |     | NULL    |                |
+| ApellidoP       | varchar(45) | YES  |     | NULL    |                |
+| ApellidoM       | varchar(45) | YES  |     | NULL    |                |
+| NombreArtistico | varchar(45) | YES  |     | NULL    |                |
+| Edad            | int(11)     | YES  |     | NULL    |                |
+| Genero          | char(1)     | YES  |     | NULL    |                |
+| FechaNacimiento | date        | YES  |     | NULL    |                |
+| Pais            | varchar(45) | YES  |     | NULL    |                |
+| Instrumento     | varchar(45) | YES  |     | NULL    |                |
+| Estatura        | double      | YES  |     | NULL    |                |
++-----------------+-------------+------+-----+---------+----------------+
+11 rows in set (0.012 sec)
+
+MariaDB [canciones]>insert into artista values
+    -> (null,'Billie','Joe','Amstrong','Billie Joe',49,'M','1979-02-17','Estados Unidos','Guitarra Acústica',1.7),
+    -> (null,'Kurt','Donald','Cobain','Kurt Cobain',27,'M','1967-02-20','Estados Unidos','Guitarra Eléctrica',1.75),
+    -> (null,'David','Eric','Grohl','Dave Grohl',52,'M','1969-01-14','Estados Unidos','Guitarra Eléctrica',1.83),
+    -> (null,'Alexander','David','Turner','Alex Turner',38,'M','1986-01-06','Inglaterra','Guitarra Eléctrica',1.8),
+    -> (null,'Julian','Fernando','Casablancas','Julian Casablancas',43,'M','1978-08-23','Estados Unidos','Ninguno',1.88),
+    -> (null,'James','Douglas','Morrison','Jim Morrison',27,'M','1943-12-08','Inglaterra','Ninguno',1.8),
+    -> (null,'Joshua','Michael','Homme','Josh Homme',48,'M','1973-05-17','Estados Unidos','Guitarra Eléctrica',1.93);
+
+MariaDB [Proyecto]> select * from artista;
++-----------+-----------+-----------+-------------+--------------------+------+--------+-----------------+----------------+--------------------+----------+
+| idArtista | Nombre    | ApellidoP | ApellidoM   | NombreArtistico    | Edad | Genero | FechaNacimiento | Pais           | Instrumento        | Estatura |
++-----------+-----------+-----------+-------------+--------------------+------+--------+-----------------+----------------+--------------------+----------+
+|         1 | Billie    | Joe       | Amstrong    | Billie Joe         |   49 | M      | 1979-02-17      | Estados Unidos | Guitarra Acústica  |      1.7 |
+|         2 | Kurt      | Donald    | Cobain      | Kurt Cobain        |   27 | M      | 1967-02-20      | Estados Unidos | Guitarra Eléctrica |     1.75 |
+|         3 | David     | Eric      | Grohl       | Dave Grohl         |   52 | M      | 1969-01-14      | Estados Unidos | Guitarra Eléctrica |     1.83 |
+|         4 | Alexander | David     | Turner      | Alex Turner        |   38 | M      | 1986-01-06      | Inglaterra     | Guitarra Eléctrica |      1.8 |
+|         5 | Julian    | Fernando  | Casablancas | Julian Casablancas |   43 | M      | 1978-08-23      | Estados Unidos | Ninguno            |     1.88 |
+|         6 | James     | Douglas   | Morrison    | Jim Morrison       |   27 | M      | 1943-12-08      | Inglaterra     | Ninguno            |      1.8 |
+|         7 | Joshua    | Michael   | Homme       | Josh Homme         |   48 | M      | 1973-05-17      | Estados Unidos | Guitarra Eléctrica |     1.93 |
++-----------+-----------+-----------+-------------+--------------------+------+--------+-----------------+----------------+--------------------+----------+
+7 rows in set (0.000 sec)
+
+MariaDB [Proyecto]> desc disquera;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| idDisquera | int(11)     | NO   | PRI | NULL    | auto_increment |
+| Nombre     | varchar(45) | YES  |     | NULL    |                |
+| Correo     | varchar(45) | YES  |     | NULL    |                |
+| Direccion  | varchar(45) | YES  |     | NULL    |                |
+| Telefono   | bigint(20)  | YES  |     | NULL    |                |
+| Fundacion  | date        | YES  |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+6 rows in set (0.010 sec)
+
+MariaDB [canciones]>insert into Disquera values
+    -> (null,'Warner Records','Warnerrecords@org.com','Los Ángeles, California, Estados Unidos',8188469090,'1958-03-19'),
+    -> (null,'Sub Pop','radio@subpop.com','Seattle , WA , 98121 EE . UU. ',2064418441,'1986-05-17'),
+    -> (null,'RCA Records','jane.doe@rcarecords.com','Nashville, Tennessee, Estados Unidos',8772526873,'1960-09-09'),
+    -> (null,'Domino Records','dominorecordco@.com','Londres, Inglaterra',5618796432,'1993-09-17'),
+    -> (null,'Cult Records','Cult_Records@123.org.com','Seattle , WA , 561356 EE . UU.',1542659877,'2009-06-21'),
+    -> (null,'Rhino Records','rhino_record@org.com','Burbank, Los Ángeles, California',1432649844,'1978-07-06'),
+    -> (null,'Rekords Rekords','rekords_rekord@org.com','Estados Unidos, California',6548976433,'2001-05-12');
+
+MariaDB [Proyecto]> select * from disquera;
++------------+-----------------+--------------------------+-----------------------------------------+------------+------------+
+| idDisquera | Nombre          | Correo                   | Direccion                               | Telefono   | Fundacion  |
++------------+-----------------+--------------------------+-----------------------------------------+------------+------------+
+|          1 | Warner Records  | Warnerrecords@org.com    | Los Ángeles, California, Estados Unidos | 8188469090 | 1958-03-19 |
+|          2 | Sub Pop         | radio@subpop.com         | Seattle , WA , 98121 EE . UU.           | 2064418441 | 1986-05-17 |
+|          3 | RCA Records     | jane.doe@rcarecords.com  | Nashville, Tennessee, Estados Unidos    | 8772526873 | 1960-09-09 |
+|          4 | Domino Records  | dominorecordco@.com      | Londres, Inglaterra                     | 5618796432 | 1993-09-17 |
+|          5 | Cult Records    | Cult_Records@123.org.com | Seattle , WA , 561356 EE . UU.          | 1542659877 | 2009-06-21 |
+|          6 | Rhino Records   | rhino_record@org.com     | Burbank, Los Ángeles, California        | 1432649844 | 1978-07-06 |
+|          7 | Rekords Rekords | rekords_rekord@org.com   | Estados Unidos, California              | 6548976433 | 2001-05-12 |
++------------+-----------------+--------------------------+-----------------------------------------+------------+------------+
+7 rows in set (0.001 sec)
+
+MariaDB [Proyecto]> desc grupo;
++---------------+-------------+------+-----+---------+----------------+
+| Field         | Type        | Null | Key | Default | Extra          |
++---------------+-------------+------+-----+---------+----------------+
+| idGrupo       | int(11)     | NO   | PRI | NULL    | auto_increment |
+| idDisquera    | int(11)     | YES  | MUL | NULL    |                |
+| Nombre        | varchar(45) | YES  |     | NULL    |                |
+| Origen        | varchar(45) | YES  |     | NULL    |                |
+| Inicio        | date        | YES  |     | NULL    |                |
+| NoIntegrantes | int(11)     | YES  |     | NULL    |                |
+| Genero        | varchar(45) | YES  |     | NULL    |                |
+| idioma        | varchar(45) | YES  |     | NULL    |                |
++---------------+-------------+------+-----+---------+----------------+
+8 rows in set (0.010 sec)
+
+MariaDB [canciones]> insert into grupo values
+    -> (null,1,'Green Day','Estados Unidos','1987-05-18',4,'Rock','Ingles'),
+    -> (null,2,'Nirvana','Aberdeen, Washington, Estados Unidos','1989-06-15',4,'Grunge','Ingles'),
+    -> (null,3,'Foo Fighters','Seattle, Washington, Estados Unidos','1994-10-19',5,'Rock','Ingles'),
+    -> (null,4,'Arctic Monkeys','Inglaterra','2003-06-22',4,'Rock','Ingles'),
+    -> (null,5,'The Strokes','Nueva York, Estados Unidos','1998-11-16',4,'Rock','Ingles'),
+    -> (null,6,'The Doors','Los Ángeles, California, Estados Unidos','1964-08-23',4,'Blues','Ingles'),
+    -> (null,7,'Queens Of the Stone Age','Palm Desert, California, Estados Unidos','2000-03-15',4,'Rock','Ingles');
+
+MariaDB [canciones]> select * from grupo;
++---------+------------+-------------------------+-----------------------------------------+------------+---------------+--------+--------+
+| idGrupo | idDisquera | Nombre                  | Origen                                  | Inicio     | NoIntegrantes | Genero | idioma |
++---------+------------+-------------------------+-----------------------------------------+------------+---------------+--------+--------+
+|       1 |          1 | Green Day               | Estados Unidos                          | 1987-05-18 |             4 | Rock   | Ingles |
+|       2 |          2 | Nirvana                 | Aberdeen, Washington, Estados Unidos    | 1989-06-15 |             4 | Grunge | Ingles |
+|       3 |          3 | Foo Fighters            | Seattle, Washington, Estados Unidos     | 1994-10-19 |             5 | Rock   | Ingles |
+|       4 |          4 | Arctic Monkeys          | Inglaterra                              | 2003-06-22 |             4 | Rock   | Ingles |
+|       5 |          5 | The Strokes             | Nueva York, Estados Unidos              | 1998-11-16 |             4 | Rock   | Ingles |
+|       6 |          6 | The Doors               | Los Ángeles, California, Estados Unidos | 1964-08-23 |             4 | Blues  | Ingles |
+|       7 |          7 | Queens Of the Stone Age | Palm Desert, California, Estados Unidos | 2000-03-15 |             4 | Rock   | Ingles |
++---------+------------+-------------------------+-----------------------------------------+------------+---------------+--------+--------+
+7 rows in set (0.000 sec)
+
+MariaDB [Proyecto]> desc album;
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| idAlbum     | int(11)     | NO   | PRI | NULL    | auto_increment |
+| idGrupo     | int(11)     | YES  | MUL | NULL    |                |
+| Nombre      | varchar(45) | YES  |     | NULL    |                |
+| NoCanciones | int(11)     | YES  |     | NULL    |                |
+| Duracion    | time        | YES  |     | NULL    |                |
+| Lanzamiento | date        | YES  |     | NULL    |                |
+| NoVentas    | double      | YES  |     | NULL    |                |
+| Genero      | varchar(45) | YES  |     | NULL    |                |
++-------------+-------------+------+-----+---------+----------------+
+8 rows in set (0.010 sec)
+
+MariaDB [canciones]> insert into album values
+    -> (null,1,'American Idiot',13,'00:57:12','2004-09-21',150000,'Rock'),
+    -> (null,2,'Nevermind',12,'00:42:38','1991-09-24',350000,'Grunge'),
+    -> (null,3,'The Colour and the Shape',13,'00:46:47','1997-05-20',145897,'Rock'),
+    -> (null,4,'Favourite Worst Nightmare',8,'00:37:18','2007-04-08',134561,'Rock'),
+    -> (null,5,'First Impressions of Earth',13,'00:52:19','2005-12-30',500000,'Rock'),
+    -> (null,6,'Strange Days',8,'00:35:25','1967-09-25',150000,'Blues'),
+    -> (null,7,'...Like Clockwork',8,'00:45:59','2013-06-03',123000,'Rock');
+
+MariaDB [Proyecto]> select * from album;
++---------+---------+----------------------------+-------------+----------+-------------+----------+--------+
+| idAlbum | idGrupo | Nombre                     | NoCanciones | Duracion | Lanzamiento | NoVentas | Genero |
++---------+---------+----------------------------+-------------+----------+-------------+----------+--------+
+|       1 |       1 | American Idiot             |          13 | 00:57:12 | 2004-09-21  |   150000 | Rock   |
+|       2 |       2 | Nevermind                  |          12 | 00:42:38 | 1991-09-24  |   350000 | Grunge |
+|       3 |       3 | The Colour and the Shape   |          13 | 00:46:47 | 1997-05-20  |   145897 | Rock   |
+|       4 |       4 | Favourite Worst Nightmare  |           8 | 00:37:18 | 2007-04-08  |   134561 | Rock   |
+|       5 |       5 | First Impressions of Earth |          13 | 00:52:19 | 2005-12-30  |   500000 | Rock   |
+|       6 |       6 | Strange Days               |           8 | 00:35:25 | 1967-09-25  |   150000 | Blues  |
+|       7 |       7 | ...Like Clockwork          |           8 | 00:45:59 | 2013-06-03  |   123000 | Rock   |
++---------+---------+----------------------------+-------------+----------+-------------+----------+--------+
+7 rows in set (0.000 sec)
+
+MariaDB [Proyecto]> desc canciones;
++--------------+-------------+------+-----+---------+----------------+
+| Field        | Type        | Null | Key | Default | Extra          |
++--------------+-------------+------+-----+---------+----------------+
+| idCancion    | int(11)     | NO   | PRI | NULL    | auto_increment |
+| idGrupo      | int(11)     | YES  | MUL | NULL    |                |
+| idInterprete | int(11)     | YES  | MUL | NULL    |                |
+| idAlbum      | int(11)     | YES  | MUL | NULL    |                |
+| Nombre       | varchar(45) | YES  |     | NULL    |                |
+| Duracion     | time        | YES  |     | NULL    |                |
+| Lanzamiento  | date        | YES  |     | NULL    |                |
+| Idioma       | varchar(45) | YES  |     | NULL    |                |
+| Genero       | varchar(45) | YES  |     | NULL    |                |
++--------------+-------------+------+-----+---------+----------------+
+9 rows in set (0.010 sec)
+
+MariaDB [canciones]> insert into canciones values
+    -> (null,1,1,1,'Whatsername','00:04:12','2004-07-15','Ingles','Rock'),
+    -> (null,2,2,2,'In Bloom','00:04:15','1991-02-17','Ingles','Grunge'),
+    -> (null,3,3,3,'Everlong','00:04:11','1997-12-22','Ingles','Rock'),
+    -> (null,4,4,4,'Brianstorm','00:02:52','2007-07-20','Ingles','Rock'),
+    -> (null,5,5,5,'Juicebox','00:03:18','2005-12-30','Ingles','Rock'),
+    -> (null,6,6,6,'People Are Strange','00:02:11','1967-12-14','Ingles','Blues'),
+    -> (null,7,7,7,'I Sat by the Ocean','00:03:55','2013-10-25','Ingles','Rock');
+
+MariaDB [Proyecto]> select * from canciones;
++-----------+---------+--------------+---------+--------------------+----------+-------------+--------+--------+
+| idCancion | idGrupo | idInterprete | idAlbum | Nombre             | Duracion | Lanzamiento | Idioma | Genero |
++-----------+---------+--------------+---------+--------------------+----------+-------------+--------+--------+
+|         1 |       1 |            1 |       1 | Whatsername        | 00:04:12 | 2004-07-15  | Ingles | Rock   |
+|         2 |       2 |            2 |       2 | In Bloom           | 00:04:15 | 1991-02-17  | Ingles | Grunge |
+|         3 |       3 |            3 |       3 | Everlong           | 00:04:11 | 1997-12-22  | Ingles | Rock   |
+|         4 |       4 |            4 |       4 | Brianstorm         | 00:02:52 | 2007-07-20  | Ingles | Rock   |
+|         5 |       5 |            5 |       5 | Juicebox           | 00:03:18 | 2005-12-30  | Ingles | Rock   |
+|         6 |       6 |            6 |       6 | People Are Strange | 00:02:11 | 1967-12-14  | Ingles | Blues  |
+|         7 |       7 |            7 |       7 | I Sat by the Ocean | 00:03:55 | 2013-10-25  | Ingles | Rock   |
++-----------+---------+--------------+---------+--------------------+----------+-------------+--------+--------+
+7 rows in set (0.000 sec)
+
+MariaDB [Proyecto]>
+
+Enter password: *******
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 68
+Server version: 10.4.12-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| biblioteca         |
+| canciones          |
+| ejemplosistema     |
+| information_schema |
+| inventario         |
+| libros             |
+| musica             |
+| mysql              |
+| performance_schema |
+| restaurante        |
+| test               |
+| ventas             |
+| zapateria          |
++--------------------+
+13 rows in set (0.001 sec)
+
+MariaDB [(none)]> use canciones;
+Database changed
+MariaDB [canciones]> show tables;
++---------------------+
+| Tables_in_canciones |
++---------------------+
+| album               |
+| artista             |
+| canciones           |
+| disquera            |
+| grupo               |
++---------------------+
+5 rows in set (0.010 sec)
+
+MariaDB [Proyecto]> select * from artista;
++-----------+---------------------+-------------+--------------+--------------------+------+--------+-----------------+----------------+--------------------+----------+
+| idArtista | Nombre              | ApellidoP   | ApellidoM    | NombreArtistico    | Edad | Genero | FechaNacimiento | Pais           | Instrumento        | Estatura |
++-----------+---------------------+-------------+--------------+--------------------+------+--------+-----------------+----------------+--------------------+----------+
+|         1 | Billie              | Joe         | Amstrong     | Billie Joe         |   49 | M      | 1979-02-17      | Estados Unidos | Guitarra Acústica  |      1.7 |
+|         2 | Kurt                | Donald      | Cobain       | Kurt Cobain        |   27 | M      | 1967-02-20      | Estados Unidos | Guitarra Eléctrica |     1.75 |
+|         3 | David               | Eric        | Grohl        | Dave Grohl         |   52 | M      | 1969-01-14      | Estados Unidos | Guitarra Eléctrica |     1.83 |
+|         4 | Alexander           | David       | Turner       | Alex Turner        |   38 | M      | 1986-01-06      | Inglaterra     | Guitarra Eléctrica |      1.8 |
+|         5 | Julian              | Fernando    | Casablancas  | Julian Casablancas |   43 | M      | 1978-08-23      | Estados Unidos | Ninguno            |     1.88 |
+|         6 | James               | Douglas     | Morrison     | Jim Morrison       |   27 | M      | 1943-12-08      | Inglaterra     | Ninguno            |      1.8 |
+|         7 | Joshua              | Michael     | Homme        | Josh Homme         |   48 | M      | 1973-05-17      | Estados Unidos | Guitarra Eléctrica |     1.93 |
+|         8 | Lukas               | Graham      | Forchhammer  | Lukas Forchhammer  |   33 | M      | 1988-09-18      | Dinamarca      | Ninguno            |     1.69 |
+|         9 | Robyn               | Rihanna     | Fenty        | Rihanna            |   33 | F      | 1998-02-20      | Estados Unidos | Ninguno            |     1.73 |
+|        10 | Enrique Miguel      | Iglesias    | Preysler     | Enrique Iglesias   |   46 | M      | 1975-05-08      | España         | Ninguno            |     1.87 |
+|        11 | Edward              | Christopher | Sheeran      | Ed Sheeran         |   30 | M      | 1991-02-17      | Inglaterra     | Piano              |     1.73 |
+|        12 | Luis Alfonso        | Rodríguez   | López-Cepero | Luis Fonsi         |   43 | M      | 1978-04-15      | Puerto Rico    | Ninguno            |      1.7 |
+|        13 | Chester             | Charles     | Bennington   | Chester Bennington |   41 | M      | 1976-03-20      | Estados Unidos | Ninguno            |     1.78 |
+|        14 | Christopher Anthony | John        | Martin       | Chris Martin       |   44 | M      | 1976-03-02      | Inglaterra     | Teclado            |     1.86 |
+|        15 | Barry Alan          | Crompton    | Gibb         | Barry Gibb         |   75 | M      | 1945-09-01      | Inglaterra     | Guitarra Acústica  |      1.8 |
+|        16 | Samuel              | Parra       | Cruz         | Samo               |   45 | M      | 1975-12-02      | Mexico         | Ninguno            |      1.8 |
+|        17 | Peter               | Gene        | Hernandez    | Bruno Mars         |   36 | M      | 1985-10-08      | M              | Estados Unidos     |     1.65 |
++-----------+---------------------+-------------+--------------+--------------------+------+--------+-----------------+----------------+--------------------+----------+
+17 rows in set (0.001 sec)
+
+MariaDB [Proyecto]> select * from album;
++---------+---------+----------------------------+-------------+----------+-------------+----------+------------------+
+| idAlbum | idGrupo | Nombre                     | NoCanciones | Duracion | Lanzamiento | NoVentas | Genero           |
++---------+---------+----------------------------+-------------+----------+-------------+----------+------------------+
+|       1 |       1 | American Idiot             |          13 | 00:57:12 | 2004-09-21  |   150000 | Rock             |
+|       2 |       2 | Nevermind                  |          12 | 00:42:38 | 1991-09-24  |   350000 | Grunge           |
+|       3 |       3 | The Colour and the Shape   |          13 | 00:46:47 | 1997-05-20  |   145897 | Rock             |
+|       4 |       4 | Favourite Worst Nightmare  |           8 | 00:37:18 | 2007-04-08  |   134561 | Rock             |
+|       5 |       5 | First Impressions of Earth |          13 | 00:52:19 | 2005-12-30  |   500000 | Rock             |
+|       6 |       6 | Strange Days               |           8 | 00:35:25 | 1967-09-25  |   150000 | Blues            |
+|       7 |       7 | ...Like Clockwork          |           8 | 00:45:59 | 2013-06-03  |   123000 | Rock             |
+|       8 |       8 | Lukas Graham               |           8 | 00:40:02 | 2015-06-16  |  5500000 | Pop              |
+|       9 |       9 | Rated R                    |          13 | 00:51:49 | 2009-11-20  |   125000 | Pop              |
+|      10 |      10 | Vivir                      |           8 | 00:41:11 | 1997-01-21  |   135006 | Pop              |
+|      11 |      11 | The Slumdon Bridge         |           4 | 00:25:23 | 2012-06-16  |   123000 | Hip-Hop          |
+|      12 |      12 | Eterno                     |          13 | 00:51:41 | 2000-06-20  |   132064 | Pop              |
+|      13 |      13 | One More Light             |           8 | 00:35:19 | 2017-05-19  |   123000 | Rock Alternativo |
+|      14 |      14 | Parachutes                 |           8 | 00:41:48 | 2000-07-10  |   564000 | Rock Alternativo |
+|      15 |      15 | Saturday Night Fever       |          13 | 01:15:54 | 1977-11-15  |   456000 | Pop              |
+|      16 |      16 | Todo cambió                |           8 | 00:35:28 | 2006-10-07  |   456000 | Alternativo      |
+|      17 |      17 | Unorthodox Jukebox         |           8 | 00:34:53 | 2012-12-07  |   456000 | Pop              |
++---------+---------+----------------------------+-------------+----------+-------------+----------+------------------+
+17 rows in set (0.000 sec)
+
+MariaDB [Proyecto]> select * from canciones;
++-----------+---------+--------------+---------+----------------------+----------+-------------+---------+------------------+
+| idCancion | idGrupo | idInterprete | idAlbum | Nombre               | Duracion | Lanzamiento | Idioma  | Genero           |
++-----------+---------+--------------+---------+----------------------+----------+-------------+---------+------------------+
+|         1 |       1 |            1 |       1 | Whatsername          | 00:04:12 | 2004-07-15  | Ingles  | Rock             |
+|         2 |       2 |            2 |       2 | In Bloom             | 00:04:15 | 1991-02-17  | Ingles  | Grunge           |
+|         3 |       3 |            3 |       3 | Everlong             | 00:04:11 | 1997-12-22  | Ingles  | Rock             |
+|         4 |       4 |            4 |       4 | Brianstorm           | 00:02:52 | 2007-07-20  | Ingles  | Rock             |
+|         5 |       5 |            5 |       5 | Juicebox             | 00:03:18 | 2005-12-30  | Ingles  | Rock             |
+|         6 |       6 |            6 |       6 | People Are Strange   | 00:02:11 | 1967-12-14  | Ingles  | Blues            |
+|         7 |       7 |            7 |       7 | I Sat by the Ocean   | 00:03:55 | 2013-10-25  | Ingles  | Rock             |
+|         8 |       8 |            8 |       8 | Mama Said            | 00:03:27 | 2016-10-20  | Ingles  | Pop              |
+|         9 |       9 |            9 |       9 | Hard                 | 00:04:11 | 2009-04-08  | Inglés  | Pop              |
+|        10 |      10 |           10 |      10 | Al Despertar         | 00:04:14 | 1997-02-20  | Español | Pop              |
+|        11 |      11 |           11 |      11 | Faces                | 00:03:17 | 2012-01-02  | Ingles  | Hip-Hop          |
+|        12 |      12 |           12 |      12 | Eterno               | 00:04:15 | 2000-12-15  | Español | Pop              |
+|        13 |      13 |           13 |      13 | One More Light       | 00:04:15 | 2017-05-19  | Ingles  | Rock Alternativo |
+|        14 |      14 |           14 |      14 | Yellow               | 00:04:29 | 2000-05-25  | Ingles  | Rock Alternativo |
+|        15 |      15 |           15 |      15 | Stayin Alive         | 00:04:15 | 1977-12-12  | Ingles  | Pop              |
+|        16 |      16 |           16 |      16 | Me Basto             | 00:03:14 | 2006-07-07  | Español | Alternativo      |
+|        17 |      17 |           17 |      17 | Locked Out of Heaven | 00:03:54 | 2012-10-01  | Ingles  | Pop              |
++-----------+---------+--------------+---------+----------------------+----------+-------------+---------+------------------+
+17 rows in set (0.000 sec)
+
+MariaDB [Proyecto]> select * from disquera;
++------------+-------------------------------------+--------------------------------------+-------------------------------------------+------------+------------+
+| idDisquera | Nombre                              | Correo                               | Direccion                                 | Telefono   | Fundacion  |
++------------+-------------------------------------+--------------------------------------+-------------------------------------------+------------+------------+
+|          1 | Warner Records                      | Warnerrecords@org.com                | Los Ángeles, California, Estados Unidos   | 8188469090 | 1958-03-19 |
+|          2 | Sub Pop                             | radio@subpop.com                     | Seattle , WA , 98121 EE . UU.             | 2064418441 | 1986-05-17 |
+|          3 | RCA Records                         | jane.doe@rcarecords.com              | Nashville, Tennessee, Estados Unidos      | 8772526873 | 1960-09-09 |
+|          4 | Domino Records                      | dominorecordco@.com                  | Londres, Inglaterra                       | 5618796432 | 1993-09-17 |
+|          5 | Cult Records                        | Cult_Records@123.org.com             | Seattle , WA , 561356 EE . UU.            | 1542659877 | 2009-06-21 |
+|          6 | Rhino Records                       | rhino_record@org.com                 | Burbank, Los Ángeles, California          | 1432649844 | 1978-07-06 |
+|          7 | Rekords Rekords                     | rekords_rekord@org.com               | Estados Unidos, California                | 6548976433 | 2001-05-12 |
+|          8 | Copenhagen Records                  | copenhagenr_records@rcd.com          | Prags Blvd. 47, 2300 København, Dinamarca | 1264559877 | 2002-05-01 |
+|          9 | Universal Music Group               | universalmusic@group.com             | Los Ángeles California                    | 5122346587 | 2034-09-10 |
+|         10 | Sony Music                          | sonymusic@org.com                    | Madrid, España                            | 1346998412 | 1929-09-09 |
+|         11 | Atlantic Records                    | Atlantic_records@123.org.com         | Nueva York, Estados Unidos                | 6513465597 | 1947-11-20 |
+|         12 | Universal Music Latin Entertainment | universalmusic@Entertainment.org.com | Canada                                    | 1266541234 | 2008-07-28 |
+|         13 | Warner Music Group                  | Warnermusic@org.com                  | Nueva York, NY, EE.UU.                    | 1233456798 | 1958-04-06 |
+|         14 | Parlophone                          | parlophone@org.com                   | Londres, Inglaterra, Reino Unido.         | 1346598845 | 1896-12-15 |
+|         15 | Leedon                              | leedon@org.com                       | Estados Unidos                            | 1365445879 | 1969-10-10 |
+|         16 | Epic Records                        | epic_records@13.org.com              | USA Serial: EK 67987                      | 5431621124 | 1953-07-05 |
+|         17 | Motown                              | motown@org.com                       | Detroit, Michigan, Estados Unidos         | 9564553214 | 1959-01-12 |
++------------+-------------------------------------+--------------------------------------+-------------------------------------------+------------+------------+
+17 rows in set (0.000 sec)
+
+MariaDB [Proyecto]> select * from grupo;
++---------+------------+-------------------------+------------------------------------------+------------+---------------+-------------+---------+
+| idGrupo | idDisquera | Nombre                  | Origen                                   | Inicio     | NoIntegrantes | Genero      | idioma  |
++---------+------------+-------------------------+------------------------------------------+------------+---------------+-------------+---------+
+|       1 |          1 | Green Day               | Estados Unidos                           | 1987-05-18 |             4 | Rock        | Ingles  |
+|       2 |          2 | Nirvana                 | Aberdeen, Washington, Estados Unidos     | 1989-06-15 |             4 | Grunge      | Ingles  |
+|       3 |          3 | Foo Fighters            | Seattle, Washington, Estados Unidos      | 1994-10-19 |             5 | Rock        | Ingles  |
+|       4 |          4 | Arctic Monkeys          | Inglaterra                               | 2003-06-22 |             4 | Rock        | Ingles  |
+|       5 |          5 | The Strokes             | Nueva York, Estados Unidos               | 1998-11-16 |             4 | Rock        | Ingles  |
+|       6 |          6 | The Doors               | Los Ángeles, California, Estados Unidos  | 1964-08-23 |             4 | Blues       | Ingles  |
+|       7 |          7 | Queens Of the Stone Age | Palm Desert, California, Estados Unidos  | 2000-03-15 |             4 | Rock        | Ingles  |
+|       8 |          8 | Lukas Graham            | Copenhague, Dinamarca                    | 2012-05-22 |             6 | Pop         | Ingles  |
+|       9 |          9 | Rihanna                 | Estados Unidos                           | 2003-05-18 |             1 | Pop         | Inglés  |
+|      10 |         10 | Enrique Iglesias        | España                                   | 1995-07-20 |             1 | Pop         | Español |
+|      11 |         11 | Ed Sheeran              | Inglaterra                               | 2005-04-26 |             1 | Hip-Hop     | Ingles  |
+|      12 |         12 | Luis Fonsi              | Puerto Rico                              | 1998-03-20 |             3 | Pop         | Español |
+|      13 |         13 | Linkin Park             | Agoura Hills, California, Estados Unidos | 1996-07-20 |             6 | Nu Metal    | Ingles  |
+|      14 |         14 | Coldplay                | Londres, Reino Unido                     | 1996-10-20 |             5 | Alternativo | Ingles  |
+|      15 |         15 | Bee Gees                | Redcliffe, Australia                     | 1958-04-25 |             4 | Pop         | Ingles  |
+|      16 |         16 | Camila                  | Ciudad de México                         | 2003-10-15 |             4 | Alternativo | Español |
+|      17 |         17 | Bruno Mars              | Estados Unidos                           | 2004-01-20 |             1 | Pop         | Ingles  |
++---------+------------+-------------------------+------------------------------------------+------------+---------------+-------------+---------+
+17 rows in set (0.000 sec)
+
+MariaDB [Proyecto]> SELECT canciones.idCancion as Id, canciones.Nombre as Cancion, artista.NombreArtistico as Interprete, grupo.Nombre as Grupo,album.Nombre as Album, canciones.Duracion,canciones.Lanzamiento,canciones.Idioma,canciones.Genero
+    -> FROM canciones
+    -> INNER JOIN artista
+    -> On canciones.idInterprete = artista.idArtista
+    -> INNER JOIN Grupo
+    -> ON canciones.idGrupo = Grupo.idGrupo
+    -> INNER JOIN Album
+    -> ON canciones.idAlbum = album.idAlbum;
++----+----------------------+--------------------+-------------------------+----------------------------+----------+-------------+---------+------------------+
+| Id | Cancion              | Interprete         | Grupo                   | Album                      | Duracion | Lanzamiento | Idioma  | Genero           |
++----+----------------------+--------------------+-------------------------+----------------------------+----------+-------------+---------+------------------+
+|  1 | Whatsername          | Billie Joe         | Green Day               | American Idiot             | 00:04:12 | 2004-07-15  | Ingles  | Rock             |
+|  2 | In Bloom             | Kurt Cobain        | Nirvana                 | Nevermind                  | 00:04:15 | 1991-02-17  | Ingles  | Grunge           |
+|  3 | Everlong             | Dave Grohl         | Foo Fighters            | The Colour and the Shape   | 00:04:11 | 1997-12-22  | Ingles  | Rock             |
+|  4 | Brianstorm           | Alex Turner        | Arctic Monkeys          | Favourite Worst Nightmare  | 00:02:52 | 2007-07-20  | Ingles  | Rock             |
+|  5 | Juicebox             | Julian Casablancas | The Strokes             | First Impressions of Earth | 00:03:18 | 2005-12-30  | Ingles  | Rock             |
+|  6 | People Are Strange   | Jim Morrison       | The Doors               | Strange Days               | 00:02:11 | 1967-12-14  | Ingles  | Blues            |
+|  7 | I Sat by the Ocean   | Josh Homme         | Queens Of the Stone Age | ...Like Clockwork          | 00:03:55 | 2013-10-25  | Ingles  | Rock             |
+|  8 | Mama Said            | Lukas Forchhammer  | Lukas Graham            | Lukas Graham               | 00:03:27 | 2016-10-20  | Ingles  | Pop              |
+|  9 | Hard                 | Rihanna            | Rihanna                 | Rated R                    | 00:04:11 | 2009-04-08  | Inglés  | Pop              |
+| 10 | Al Despertar         | Enrique Iglesias   | Enrique Iglesias        | Vivir                      | 00:04:14 | 1997-02-20  | Español | Pop              |
+| 11 | Faces                | Ed Sheeran         | Ed Sheeran              | The Slumdon Bridge         | 00:03:17 | 2012-01-02  | Ingles  | Hip-Hop          |
+| 12 | Eterno               | Luis Fonsi         | Luis Fonsi              | Eterno                     | 00:04:15 | 2000-12-15  | Español | Pop              |
+| 13 | One More Light       | Chester Bennington | Linkin Park             | One More Light             | 00:04:15 | 2017-05-19  | Ingles  | Rock Alternativo |
+| 14 | Yellow               | Chris Martin       | Coldplay                | Parachutes                 | 00:04:29 | 2000-05-25  | Ingles  | Rock Alternativo |
+| 15 | Stayin Alive         | Barry Gibb         | Bee Gees                | Saturday Night Fever       | 00:04:15 | 1977-12-12  | Ingles  | Pop              |
+| 16 | Me Basto             | Samo               | Camila                  | Todo cambió                | 00:03:14 | 2006-07-07  | Español | Alternativo      |
+| 17 | Locked Out of Heaven | Bruno Mars         | Bruno Mars              | Unorthodox Jukebox         | 00:03:54 | 2012-10-01  | Ingles  | Pop              |
++----+----------------------+--------------------+-------------------------+----------------------------+----------+-------------+---------+------------------+
+17 rows in set (0.000 sec)
+
+MariaDB [Proyecto]> SELECT album.idAlbum as Id, grupo.Nombre as Grupo, album.Nombre as Album, album.noCanciones as NoCanciones, album.duracion as Duracion, album.lanzamiento as Lanzamiento, album.noVentas as NoVentas, album.Genero
+    -> FROM album
+    -> INNER JOIN grupo
+    -> ON grupo.idGrupo = album.idGrupo;
++----+-------------------------+----------------------------+-------------+----------+-------------+----------+------------------+
+| Id | Grupo                   | Album                      | NoCanciones | Duracion | Lanzamiento | NoVentas | Genero           |
++----+-------------------------+----------------------------+-------------+----------+-------------+----------+------------------+
+|  1 | Green Day               | American Idiot             |          13 | 00:57:12 | 2004-09-21  |   150000 | Rock             |
+|  2 | Nirvana                 | Nevermind                  |          12 | 00:42:38 | 1991-09-24  |   350000 | Grunge           |
+|  3 | Foo Fighters            | The Colour and the Shape   |          13 | 00:46:47 | 1997-05-20  |   145897 | Rock             |
+|  4 | Arctic Monkeys          | Favourite Worst Nightmare  |           8 | 00:37:18 | 2007-04-08  |   134561 | Rock             |
+|  5 | The Strokes             | First Impressions of Earth |          13 | 00:52:19 | 2005-12-30  |   500000 | Rock             |
+|  6 | The Doors               | Strange Days               |           8 | 00:35:25 | 1967-09-25  |   150000 | Blues            |
+|  7 | Queens Of the Stone Age | ...Like Clockwork          |           8 | 00:45:59 | 2013-06-03  |   123000 | Rock             |
+|  8 | Lukas Graham            | Lukas Graham               |           8 | 00:40:02 | 2015-06-16  |  5500000 | Pop              |
+|  9 | Rihanna                 | Rated R                    |          13 | 00:51:49 | 2009-11-20  |   125000 | Pop              |
+| 10 | Enrique Iglesias        | Vivir                      |           8 | 00:41:11 | 1997-01-21  |   135006 | Pop              |
+| 11 | Ed Sheeran              | The Slumdon Bridge         |           4 | 00:25:23 | 2012-06-16  |   123000 | Hip-Hop          |
+| 12 | Luis Fonsi              | Eterno                     |          13 | 00:51:41 | 2000-06-20  |   132064 | Pop              |
+| 13 | Linkin Park             | One More Light             |           8 | 00:35:19 | 2017-05-19  |   123000 | Rock Alternativo |
+| 14 | Coldplay                | Parachutes                 |           8 | 00:41:48 | 2000-07-10  |   564000 | Rock Alternativo |
+| 15 | Bee Gees                | Saturday Night Fever       |          13 | 01:15:54 | 1977-11-15  |   456000 | Pop              |
+| 16 | Camila                  | Todo cambió                |           8 | 00:35:28 | 2006-10-07  |   456000 | Alternativo      |
+| 17 | Bruno Mars              | Unorthodox Jukebox         |           8 | 00:34:53 | 2012-12-07  |   456000 | Pop              |
++----+-------------------------+----------------------------+-------------+----------+-------------+----------+------------------+
+17 rows in set (0.000 sec)
+
+MariaDB [Proyecto]> SELECT grupo.idGrupo as Id, Disquera.Nombre as Disquera, grupo.Nombre as Grupo, grupo.Origen, grupo.inicio as FechaInicio, grupo.noIntegrantes as Integrantes, grupo.Genero, grupo.Idioma
+    -> FROM grupo
+    -> INNER JOIN disquera
+    -> ON grupo.idDisquera = disquera.idDisquera;
++----+-------------------------------------+-------------------------+------------------------------------------+-------------+-------------+-------------+---------+
+| Id | Disquera                            | Grupo                   | Origen                                   | FechaInicio | Integrantes | Genero      | Idioma  |
++----+-------------------------------------+-------------------------+------------------------------------------+-------------+-------------+-------------+---------+
+|  1 | Warner Records                      | Green Day               | Estados Unidos                           | 1987-05-18  |           4 | Rock        | Ingles  |
+|  2 | Sub Pop                             | Nirvana                 | Aberdeen, Washington, Estados Unidos     | 1989-06-15  |           4 | Grunge      | Ingles  |
+|  3 | RCA Records                         | Foo Fighters            | Seattle, Washington, Estados Unidos      | 1994-10-19  |           5 | Rock        | Ingles  |
+|  4 | Domino Records                      | Arctic Monkeys          | Inglaterra                               | 2003-06-22  |           4 | Rock        | Ingles  |
+|  5 | Cult Records                        | The Strokes             | Nueva York, Estados Unidos               | 1998-11-16  |           4 | Rock        | Ingles  |
+|  6 | Rhino Records                       | The Doors               | Los Ángeles, California, Estados Unidos  | 1964-08-23  |           4 | Blues       | Ingles  |
+|  7 | Rekords Rekords                     | Queens Of the Stone Age | Palm Desert, California, Estados Unidos  | 2000-03-15  |           4 | Rock        | Ingles  |
+|  8 | Copenhagen Records                  | Lukas Graham            | Copenhague, Dinamarca                    | 2012-05-22  |           6 | Pop         | Ingles  |
+|  9 | Universal Music Group               | Rihanna                 | Estados Unidos                           | 2003-05-18  |           1 | Pop         | Inglés  |
+| 10 | Sony Music                          | Enrique Iglesias        | España                                   | 1995-07-20  |           1 | Pop         | Español |
+| 11 | Atlantic Records                    | Ed Sheeran              | Inglaterra                               | 2005-04-26  |           1 | Hip-Hop     | Ingles  |
+| 12 | Universal Music Latin Entertainment | Luis Fonsi              | Puerto Rico                              | 1998-03-20  |           3 | Pop         | Español |
+| 13 | Warner Music Group                  | Linkin Park             | Agoura Hills, California, Estados Unidos | 1996-07-20  |           6 | Nu Metal    | Ingles  |
+| 14 | Parlophone                          | Coldplay                | Londres, Reino Unido                     | 1996-10-20  |           5 | Alternativo | Ingles  |
+| 15 | Leedon                              | Bee Gees                | Redcliffe, Australia                     | 1958-04-25  |           4 | Pop         | Ingles  |
+| 16 | Epic Records                        | Camila                  | Ciudad de México                         | 2003-10-15  |           4 | Alternativo | Español |
+| 17 | Motown                              | Bruno Mars              | Estados Unidos                           | 2004-01-20  |           1 | Pop         | Ingles  |
++----+-------------------------------------+-------------------------+------------------------------------------+-------------+-------------+-------------+---------+
+17 rows in set (0.000 sec)
+
+MariaDB [Proyecto]>
+
+create database Canciones;
+
+use Canciones;
+
+create table Artista(
+idArtista int primary key auto_increment,
+Nombre varchar(45),
+ApellidoP varchar(45),
+ApellidoM varchar(45),
+NombreArtistico varchar(45),
+Edad int,
+Genero char,
+FechaNacimiento date,
+Pais varchar(45),
+Instrumento varchar(45),
+Estatura double);
+
+create table Disquera(
+idDisquera int primary key auto_increment,
+Nombre varchar(45),
+Correo varchar(45),
+Direccion varchar(45),
+Telefono bigint,
+Fundacion date);
+
+create table Grupo(
+idGrupo int primary key auto_increment,
+idDisquera int,
+Nombre varchar(45),
+Origen varchar(45),
+Inicio date,
+NoIntegrantes int,
+Genero varchar(45),
+idioma varchar(45),
+foreign key (idDisquera) references Disquera(idDisquera) on update cascade on delete cascade); 
+
+
+create table Album(
+idAlbum int primary key auto_increment,
+idGrupo int,
+Nombre varchar(45),
+NoCanciones int,
+Duracion Time,
+Lanzamiento date,
+NoVentas double,
+Genero varchar(45),
+foreign key(idGrupo) references Grupo(idGrupo) on update cascade on delete cascade); 
+
+create table Canciones(
+idCancion int primary key auto_increment,
+idGrupo int,
+idInterprete int,
+idAlbum int,
+Nombre varchar(45),
+Duracion time,
+Lanzamiento date,
+Idioma varchar(45),
+Genero varchar(45),
+foreign key (idGrupo) references Grupo(idGrupo) on update cascade on delete cascade,
+foreign key (idInterprete) references Artista(idArtista) on update cascade on delete cascade,
+foreign key (idAlbum) references Album(idAlbum) on update cascade on delete cascade);
+
+jdbc:mysql://localhost:33065/canciones
+
+----------------JUNTURAS----------------
+
+Canciones
+SELECT canciones.idCancion as Id, canciones.Nombre as Cancion, artista.NombreArtistico as Interprete, grupo.Nombre as Grupo,album.Nombre as Album, canciones.Duracion,canciones.Lanzamiento,canciones.Idioma,canciones.Genero
+FROM canciones
+INNER JOIN artista
+On canciones.idInterprete = artista.idArtista
+INNER JOIN Grupo
+ON canciones.idGrupo = Grupo.idGrupo
+INNER JOIN Album
+ON canciones.idAlbum = album.idAlbum;
+
+Album
+SELECT album.idAlbum as Id, grupo.Nombre as Grupo, album.Nombre as Album, album.noCanciones as NoCanciones, album.duracion as Duracion, album.lanzamiento as Lanzamiento, album.noVentas as NoVentas, album.Genero
+FROM album
+INNER JOIN grupo
+ON grupo.idGrupo = album.idGrupo;
+
+Grupo
+SELECT grupo.idGrupo as Id, Disquera.Nombre as Disquera, grupo.Nombre as Grupo, grupo.Origen, grupo.inicio as FechaInicio, grupo.noIntegrantes as Integrantes, grupo.Genero, grupo.Idioma
+FROM grupo
+INNER JOIN disquera
+ON grupo.idDisquera = disquera.idDisquera;

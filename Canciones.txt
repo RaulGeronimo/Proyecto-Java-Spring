@@ -1,0 +1,193 @@
+MariaDB [Proyecto]> desc artista;
++-----------------+-------------+------+-----+---------+----------------+
+| Field           | Type        | Null | Key | Default | Extra          |
++-----------------+-------------+------+-----+---------+----------------+
+| idArtista       | int(11)     | NO   | PRI | NULL    | auto_increment |
+| Nombre          | varchar(45) | YES  |     | NULL    |                |
+| ApellidoP       | varchar(45) | YES  |     | NULL    |                |
+| ApellidoM       | varchar(45) | YES  |     | NULL    |                |
+| NombreArtistico | varchar(45) | YES  |     | NULL    |                |
+| Edad            | int(11)     | YES  |     | NULL    |                |
+| Genero          | char(1)     | YES  |     | NULL    |                |
+| FechaNacimiento | date        | YES  |     | NULL    |                |
+| Pais            | varchar(45) | YES  |     | NULL    |                |
+| Instrumento     | varchar(45) | YES  |     | NULL    |                |
+| Estatura        | double      | YES  |     | NULL    |                |
++-----------------+-------------+------+-----+---------+----------------+
+11 rows in set (0.009 sec)
+
+insert into artista values
+(null,'Billie','Joe','Amstrong','Billie Joe',49,'M','1979-02-17','Estados Unidos','Guitarra Acústica',1.7),
+(null,'Kurt','Donald','Cobain','Kurt Cobain',27,'M','1967-02-20','Estados Unidos','Guitarra Eléctrica',1.75),
+(null,'David','Eric','Grohl','Dave Grohl',52,'M','1969-01-14','Estados Unidos','Guitarra Eléctrica',1.83),
+(null,'Alexander','David','Turner','Alex Turner',38,'M','1986-01-06','Inglaterra','Guitarra Eléctrica',1.8),
+(null,'Julian','Fernando','Casablancas','Julian Casablancas',43,'M','1978-08-23','Estados Unidos','Ninguno',1.88),
+(null,'James','Douglas','Morrison','Jim Morrison',27,'M','1943-12-08','Inglaterra','Ninguno',1.8),
+(null,'Joshua','Michael','Homme','Josh Homme',48,'M','1973-05-17','Estados Unidos','Guitarra Eléctrica',1.93);
+
+insert into artista values
+(null,'Lukas','Graham','Forchhammer','Lukas Forchhammer',33,'M','1988-09-18','Dinamarca','Ninguno',1.69),
+(null,'Robyn','Rihanna','Fenty','Rihanna',33,'F','1998-02-20','Estados Unidos','Ninguno',1.73),
+(null,'Enrique Miguel','Iglesias','Preysler','Enrique Iglesias',46,'M','1975-05-08','España','Ninguno',1.87),
+(null,'Edward','Christopher','Sheeran','Ed Sheeran',30,'M','1991-02-17','Inglaterra','Piano',1.73),
+(null,'Luis Alfonso','Rodríguez','López-Cepero','Luis Fonsi',43,'M','1978-04-15','Puerto Rico','Ninguno',1.70);
+
+insert into artista values
+(null,'Chester','Charles','Bennington','Chester Bennington',41,'M','1976-03-20','Estados Unidos','Ninguno',1.78),
+(null,'Christopher Anthony','John','Martin','Chris Martin',44,'M','1976-03-02','Inglaterra','Teclado',1.86),
+(null,'Barry Alan','Crompton','Gibb','Barry Gibb',75,'M','1945-09-01','Inglaterra','Guitarra Acústica',1.80),
+(null,'Samuel','Parra','Cruz','Samo',45,'M','1975-12-02','Mexico','Ninguno',1.80),
+(null,'Peter','Gene','Hernandez','Bruno Mars',36,'M','1985-10-08','Estados Unidos','Ninguno',1.65);
+
+MariaDB [Proyecto]> desc disquera;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| idDisquera | int(11)     | NO   | PRI | NULL    | auto_increment |
+| Nombre     | varchar(45) | YES  |     | NULL    |                |
+| Correo     | varchar(45) | YES  |     | NULL    |                |
+| Direccion  | varchar(45) | YES  |     | NULL    |                |
+| Telefono   | bigint(20)  | YES  |     | NULL    |                |
+| Fundacion  | date        | YES  |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+6 rows in set (0.024 sec)
+
+insert into disquera values
+(null,'Warner Records','Warnerrecords@org.com','Los Ángeles, California, Estados Unidos',8188469090,'1958-03-19'),
+(null,'Sub Pop','radio@subpop.com','Seattle , WA , 98121 EE . UU. ',2064418441,'1986-05-17'),
+(null,'RCA Records','jane.doe@rcarecords.com','Nashville, Tennessee, Estados Unidos',8772526873,'1960-09-09'),
+(null,'Domino Records','dominorecordco@.com','Londres, Inglaterra',5618796432,'1993-09-17'),
+(null,'Cult Records','Cult_Records@123.org.com','Seattle , WA , 561356 EE . UU.',1542659877,'2009-06-21'),
+(null,'Rhino Records','rhino_record@org.com','Burbank, Los Ángeles, California',1432649844,'1978-07-06'),
+(null,'Rekords Rekords','rekords_rekord@org.com','Estados Unidos, California',6548976433,'2001-05-12');
+
+insert into disquera values
+(null,'Copenhagen Records','copenhagenr_records@rcd.com','Prags Blvd. 47, 2300 København, Dinamarca',1264559877,'2002-05-01'),
+(null,'Universal Music Group','universalmusic@group.com','Los Ángeles California',5122346587,'2034-09-10'),
+(null,'Sony Music','sonymusic@org.com','Madrid, España',1346998412,'1929-09-09'),
+(null,'Atlantic Records','Atlantic_records@123.org.com','Nueva York, Estados Unidos',6513465597,'1947-11-20'),
+(null,'Universal Music Latin Entertainment','universalmusic@Entertainment.org.com','Canada',1266541234,'2008-07-28');
+
+insert into disquera values
+(null,'Warner Music Group','Warnermusic@org.com','Nueva York, NY, EE.UU.',1233456798,'1958-04-06'),
+(null,'Parlophone','parlophone@org.com','Londres, Inglaterra, Reino Unido.',1346598845,'1896-12-15'),
+(null,'Leedon','leedon@org.com','Estados Unidos',1365445879,'1969-10-10'),
+(null,'Epic Records','epic_records@13.org.com','USA Serial: EK 67987',5431621124,'1953-07-05'),
+(null,'Motown','motown@org.com','Detroit, Michigan, Estados Unidos',9564553214,'1959-01-12');
+
+MariaDB [Proyecto]> desc grupo;
++---------------+-------------+------+-----+---------+----------------+
+| Field         | Type        | Null | Key | Default | Extra          |
++---------------+-------------+------+-----+---------+----------------+
+| idGrupo       | int(11)     | NO   | PRI | NULL    | auto_increment |
+| idDisquera    | int(11)     | YES  | MUL | NULL    |                |
+| Nombre        | varchar(45) | YES  |     | NULL    |                |
+| Origen        | varchar(45) | YES  |     | NULL    |                |
+| Inicio        | date        | YES  |     | NULL    |                |
+| NoIntegrantes | int(11)     | YES  |     | NULL    |                |
+| Genero        | varchar(45) | YES  |     | NULL    |                |
+| idioma        | varchar(45) | YES  |     | NULL    |                |
++---------------+-------------+------+-----+---------+----------------+
+8 rows in set (0.011 sec)
+
+insert into grupo values
+(null,1,'Green Day','Estados Unidos','1987-05-18',4,'Rock','Ingles'),
+(null,2,'Nirvana','Aberdeen, Washington, Estados Unidos','1989-06-15',4,'Grunge','Ingles'),
+(null,3,'Foo Fighters','Seattle, Washington, Estados Unidos','1994-10-19',5,'Rock','Ingles'),
+(null,4,'Arctic Monkeys','Inglaterra','2003-06-22',4,'Rock','Ingles'),
+(null,5,'The Strokes','Nueva York, Estados Unidos','1998-11-16',4,'Rock','Ingles'),
+(null,6,'The Doors','Los Ángeles, California, Estados Unidos','1964-08-23',4,'Blues','Ingles'),
+(null,7,'Queens Of the Stone Age','Palm Desert, California, Estados Unidos','2000-03-15',4,'Rock','Ingles');
+
+insert into grupo values
+(null,8,'Lukas Graham','Copenhague, Dinamarca','2012-05-22',6,'Pop','Ingles'),
+(null,9,'Rihanna','Estados Unidos','2003-05-18',1,'Pop','Ingles'),
+(null,10,'Enrique Iglesias','España','1995-07-20',1,'Pop','Español'),
+(null,11,'Ed Sheeran','Inglaterra','2005-04-26',1,'Hip-Hop','Ingles'),
+(null,12,'Luis Fonsi','Puerto Rico','1998-03-20',3,'Pop','Español');
+
+insert into grupo values
+(null,13,'Linkin Park','Agoura Hills, California, Estados Unidos','1996-07-20',6,'Nu Metal','Ingles'),
+(null,14,'Coldplay','Londres, Reino Unido','1996-10-20',5,'Alternativo','Ingles'),
+(null,15,'Bee Gees','Redcliffe, Australia','1958-04-25',4,'Pop','Ingles'),
+(null,16,'Camila','Ciudad de México','2003-10-15',4,'Alternativo','Español'),
+(null,17,'Bruno Mars','Estados Unidos','2004-01-20',1,'Pop','Ingles');
+
+MariaDB [Proyecto]> desc album;
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| idAlbum     | int(11)     | NO   | PRI | NULL    | auto_increment |
+| idGrupo     | int(11)     | YES  | MUL | NULL    |                |
+| Nombre      | varchar(45) | YES  |     | NULL    |                |
+| NoCanciones | int(11)     | YES  |     | NULL    |                |
+| Duracion    | time        | YES  |     | NULL    |                |
+| Lanzamiento | date        | YES  |     | NULL    |                |
+| NoVentas    | double      | YES  |     | NULL    |                |
+| Genero      | varchar(45) | YES  |     | NULL    |                |
++-------------+-------------+------+-----+---------+----------------+
+8 rows in set (0.057 sec)
+
+insert into album values
+(null,1,'American Idiot',13,'00:57:12','2004-09-21',150000,'Rock'),
+(null,2,'Nevermind',12,'00:42:38','1991-09-24',350000,'Grunge'),
+(null,3,'The Colour and the Shape',13,'00:46:47','1997-05-20',145897,'Rock'),
+(null,4,'Favourite Worst Nightmare',8,'00:37:18','2007-04-08',134561,'Rock'),
+(null,5,'First Impressions of Earth',13,'00:52:19','2005-12-30',500000,'Rock'),
+(null,6,'Strange Days',8,'00:35:25','1967-09-25',150000,'Blues'),
+(null,7,'...Like Clockwork',8,'00:45:59','2013-06-03',123000,'Rock');
+
+insert into album values
+(null,8,'Lukas Graham',8,'00:40:02','2015-06-16',5500000,'Pop'),
+(null,9,'Rated R',13,'00:51:49','2009-11-20',125000,'Pop'),
+(null,10,'Vivir',8,'00:41:11','1997-01-21',135006,'Pop'),
+(null,11,'The Slumdon Bridge',4,'00:25:23','2012-06-16',123000,'Hip-Hop'),
+(null,12,'Eterno',13,'00:51:41','2000-06-20',132064,'Pop');
+
+insert into album values
+(null,13,'One More Light',8,'00:35:19','2017-05-19',123000,'Rock Alternativo'),
+(null,14,'Parachutes',8,'00:41:48','2000-07-10',564000,'Rock Alternativo'),
+(null,15,'Saturday Night Fever',13,'01:15:54','1977-11-15',456000,'Pop'),
+(null,16,'Todo cambió',8,'00:35:28','2006-10-07',456000,'Alternativo'),
+(null,17,'Unorthodox Jukebox',8,'00:34:53','2012-12-07',456000,'Pop');
+
+MariaDB [Proyecto]> desc canciones;
++--------------+-------------+------+-----+---------+----------------+
+| Field        | Type        | Null | Key | Default | Extra          |
++--------------+-------------+------+-----+---------+----------------+
+| idCancion    | int(11)     | NO   | PRI | NULL    | auto_increment |
+| idGrupo      | int(11)     | YES  | MUL | NULL    |                |
+| idInterprete | int(11)     | YES  | MUL | NULL    |                |
+| idAlbum      | int(11)     | YES  | MUL | NULL    |                |
+| Nombre       | varchar(45) | YES  |     | NULL    |                |
+| Duracion     | time        | YES  |     | NULL    |                |
+| Lanzamiento  | date        | YES  |     | NULL    |                |
+| Idioma       | varchar(45) | YES  |     | NULL    |                |
+| Genero       | varchar(45) | YES  |     | NULL    |                |
++--------------+-------------+------+-----+---------+----------------+
+9 rows in set (0.029 sec)
+
+insert into canciones values
+(null,1,1,1,'Whatsername','00:04:12','2004-07-15','Ingles','Rock'),
+(null,2,2,2,'In Bloom','00:04:15','1991-02-17','Ingles','Grunge'),
+(null,3,3,3,'Everlong','00:04:11','1997-12-22','Ingles','Rock'),
+(null,4,4,4,'Brianstorm','00:02:52','2007-07-20','Ingles','Rock'),
+(null,5,5,5,'Juicebox','00:03:18','2005-12-30','Ingles','Rock'),
+(null,6,6,6,'People Are Strange','00:02:11','1967-12-14','Ingles','Blues'),
+(null,7,7,7,'I Sat by the Ocean','00:03:55','2013-10-25','Ingles','Rock');
+
+insert into canciones values
+(null,8,8,8,'Mama Said','00:03:27','2016-10-20','Ingles','Pop'),
+(null,9,9,9,'Hard','00:04:11','2009-04-08','Ingles','Pop'),
+(null,10,10,10,'Al Despertar','00:04:14','1997-02-20','Español','Pop'),
+(null,11,11,11,'Faces ','00:03:17','2012-01-02','Ingles','Hip-Hop'),
+(null,12,12,12,'Eterno','00:04:15','2000-12-15','Español','Pop');
+
+insert into canciones values
+(null,13,13,13,'One More Light','00:04:15','2017-05-19','Ingles','Rock Alternativo'),
+(null,14,14,14,'Yellow','00:04:29','2000-05-25','Ingles','Rock Alternativo'),
+(null,15,15,15,'Stayin Alive','00:04:15','1977-12-12','Ingles','Pop'),
+(null,16,16,16,'Me Basto','00:03:14','2006-07-07','Español','Alternativo'),
+(null,17,17,17,'Locked Out of Heaven','00:03:54','2012-10-01','Ingles','Pop');
+
+jdbc:mysql://localhost:33065/canciones
